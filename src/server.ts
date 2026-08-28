@@ -13,6 +13,8 @@ import type { Config } from "./config.js";
 import type { Session } from "./session.js";
 import { fail } from "./format.js";
 import { TOOLS } from "./tools/index.js";
+import { registerResources } from "./resources.js";
+import { registerPrompts } from "./prompts.js";
 import { isWrite, type ToolDef, type ToolContext } from "./tools/types.js";
 import { VERSION } from "./version.js";
 
@@ -82,8 +84,18 @@ export function createServer(client: NimbioClient, session: Session, config: Con
   const filtered = selectTools(session, config);
   const server = new McpServer(
     { name: "nimbio", version: VERSION },
-    { capabilities: { tools: { listChanged: false } }, instructions: instructions(session, filtered) },
+    {
+      capabilities: {
+        tools: { listChanged: false },
+        resources: { listChanged: false },
+        prompts: { listChanged: false },
+      },
+      instructions: instructions(session, filtered),
+    },
   );
+
+  registerResources(server, client, session);
+  registerPrompts(server, session);
 
   const ctx: ToolContext = { client, session, config };
 

@@ -1,0 +1,61 @@
+{
+  "name": "@nimbio/mcp-server",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for the Nimbio community API — gates, members, guest access and access logs, exposed to LLM agents as tools.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "nimbio-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf dist coverage",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "surface": "UPDATE_SURFACE=1 vitest run test/surface.test.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "nimbio",
+    "mcp",
+    "model-context-protocol",
+    "access-control",
+    "gate",
+    "llm",
+    "agent"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@nimbio/community-api": "^0.6.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/node": "^22.7.0",
+    "@vitest/coverage-v8": "^4.1.11",
+    "eslint": "^9.13.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.10.0",
+    "vitest": "^4.1.11"
+  }
+}

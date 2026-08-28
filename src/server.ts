@@ -12,6 +12,8 @@ import { z } from "zod";
 import type { Config } from "./config.js";
 import type { Session } from "./session.js";
 import { fail } from "./format.js";
+import { confirm as runConfirm } from "./confirm.js";
+import { normalizeError } from "./errors.js";
 import { TOOLS } from "./tools/index.js";
 import { registerResources } from "./resources.js";
 import { registerPrompts } from "./prompts.js";
@@ -97,7 +99,18 @@ export function createServer(client: NimbioClient, session: Session, config: Con
   registerResources(server, client, session);
   registerPrompts(server, session);
 
-  const ctx: ToolContext = { client, session, config };
+  const ctx: ToolContext = {
+    client,
+    session,
+    config,
+    confirm: (toolName, args, details) =>
+      runConfirm(
+        { server: server.server, unrestricted: config.mode === "unrestricted", testMode: session.testMode },
+        toolName,
+        args,
+        details,
+      ),
+  };
 
   for (const tool of filtered.registered) {
     server.registerTool(
@@ -105,14 +118,19 @@ export function createServer(client: NimbioClient, session: Session, config: Con
       {
         title: tool.title,
         description: tool.description,
-        inputSchema: (tool.inputSchema ?? {}) as z.ZodRawShape,
+        inputSchema: withConfirmationArg(tool) as z.ZodRawShape,
         annotations: tool.annotations,
       },
       async (args: Record<string, unknown>) => {
+        const supplied = args ?? {};
         try {
-          return await tool.handler(ctx, args ?? {});
+          if (tool.confirm) {
+            const outcome = await ctx.confirm(tool.name, supplied, await tool.confirm(supplied, ctx));
+            if (!outcome.ok) return outcome.result;
+          }
+          return await tool.handler(ctx, supplied);
         } catch (err) {
-          return fail(describeError(err));
+          return fail(normalizeError(err, session, tool.capability));
         }
       },
     );
@@ -122,16 +140,21 @@ export function createServer(client: NimbioClient, session: Session, config: Con
 }
 
 /**
- * Turn an SDK error into something a model can act on.
- *
- * Phase 2 extends this with the cases that genuinely mislead — a 504
- * `did_not_open` (the gate may have physically fired and the idempotency token
- * is deliberately not freed), `scan_required` arriving as 409 on one surface
- * and 403 on another, and capability 403s.
+ * Confirm-gated tools accept an extra argument carrying the token from their
+ * own preview. It is added here rather than in each tool so no tool can forget
+ * it, and so it never appears on a tool that does not need confirming.
  */
-export function describeError(err: unknown): string {
-  if (err instanceof Error) {
-    return `${err.name}: ${err.message}`;
-  }
-  return `Unexpected error: ${String(err)}`;
+export function withConfirmationArg(tool: ToolDef): z.ZodRawShape {
+  const base = (tool.inputSchema ?? {}) as z.ZodRawShape;
+  if (!tool.confirm) return base;
+  return {
+    ...base,
+    confirmation_token: z
+      .string()
+      .optional()
+      .describe(
+        "The token from this tool's own confirmation preview. Omit on the first call — you " +
+          "will be shown what the call would do and given a token to repeat it with.",
+      ),
+  };
 }

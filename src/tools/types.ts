@@ -4,11 +4,21 @@ import type { ZodRawShape } from "zod";
 import type { Config } from "../config.js";
 import type { Session } from "../session.js";
 import type { ToolResult } from "../format.js";
+import type { ConfirmDetails, ConfirmOutcome } from "../confirm.js";
 
 export interface ToolContext {
   client: NimbioClient;
   session: Session;
   config: Config;
+  /**
+   * Ask a human before doing something irreversible. Returns `{ok: true}` to
+   * proceed, or a result the tool must return unchanged.
+   */
+  confirm: (
+    toolName: string,
+    args: Record<string, unknown>,
+    details: ConfirmDetails,
+  ) => Promise<ConfirmOutcome>;
 }
 
 export interface ToolDef {
@@ -34,6 +44,11 @@ export interface ToolDef {
   scope?: "community" | "account" | "any";
   /** The REST operations this tool covers, for `surface.json` and the parity gate. */
   endpoints: string[];
+  /**
+   * Present on tools whose effect cannot be undone by a follow-up call. Builds
+   * the consequence text a human is asked to approve.
+   */
+  confirm?: (args: Record<string, unknown>, ctx: ToolContext) => Promise<ConfirmDetails>;
   handler: (ctx: ToolContext, args: Record<string, unknown>) => Promise<ToolResult>;
 }
 

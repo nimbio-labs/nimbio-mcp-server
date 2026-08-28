@@ -6,17 +6,53 @@
  *
  * Order is deliberate and stable: the spec asks for a deterministic tool list
  * so clients can cache it and prompt caches stay warm. Tools are grouped the
- * way a manager thinks — orient, look at gates, look at people, guests, logs,
- * config, plumbing — not the way the REST paths are grouped.
+ * way a manager thinks — orient, gates, people, guests, audit, config,
+ * plumbing — not the way the REST paths are grouped. Within each group reads
+ * come before writes.
  */
 import type { ToolDef } from "./types.js";
 import { whoami, communityOverview, gateStatus } from "./identity.js";
 import { listGates, keyStatuses, holdOpens } from "./gates.js";
+import { openGate, openMyGate } from "./opens.js";
+import {
+  setHoldOpen,
+  addHoldOpenWindow,
+  removeHoldOpenWindow,
+  manageRecurringHoldOpen,
+} from "./holdopen-writes.js";
 import { listMembers, keySchedule, communityKeys } from "./members.js";
+import {
+  addMembers,
+  approveMember,
+  manageMemberKeys,
+  updateKey,
+  setKeySchedule,
+} from "./member-writes.js";
 import { listGuestLinks, listAccessCodes, guestViewEntry, shortCodes } from "./guests.js";
+import {
+  createGuestLink,
+  revokeGuestLink,
+  manageAccessCode,
+  configureGuestViewEntry,
+  manageShortCode,
+} from "./guest-writes.js";
 import { accessLog, gateStatusLog, changeLog, keyUsage } from "./logs.js";
 import { settings, homes, senseLines, nfcTags } from "./config.js";
+import {
+  updateSettings,
+  manageHome,
+  removeHome,
+  updateSenseLine,
+  updateNfcTag,
+  updateGeofence,
+} from "./config-writes.js";
 import { webhooks, webhookDeliveries, messages, myNotificationSettings } from "./webhooks.js";
+import {
+  manageWebhook,
+  replayWebhook,
+  sendMessage,
+  setMyNotifications,
+} from "./webhook-writes.js";
 import { myKeys } from "./account.js";
 
 export const TOOLS: readonly ToolDef[] = Object.freeze([
@@ -27,16 +63,32 @@ export const TOOLS: readonly ToolDef[] = Object.freeze([
   listGates,
   gateStatus,
   keyStatuses,
+  openGate,
+  // Hold opens
   holdOpens,
+  setHoldOpen,
+  addHoldOpenWindow,
+  removeHoldOpenWindow,
+  manageRecurringHoldOpen,
   // People and their access
   listMembers,
   communityKeys,
   keySchedule,
+  addMembers,
+  approveMember,
+  manageMemberKeys,
+  updateKey,
+  setKeySchedule,
   // Guests
   listGuestLinks,
+  createGuestLink,
+  revokeGuestLink,
   listAccessCodes,
+  manageAccessCode,
   guestViewEntry,
+  configureGuestViewEntry,
   shortCodes,
+  manageShortCode,
   // Audit
   accessLog,
   gateStatusLog,
@@ -44,16 +96,27 @@ export const TOOLS: readonly ToolDef[] = Object.freeze([
   keyUsage,
   // Configuration and hardware
   settings,
+  updateSettings,
   homes,
+  manageHome,
+  removeHome,
   senseLines,
+  updateSenseLine,
   nfcTags,
+  updateNfcTag,
+  updateGeofence,
   // Plumbing
   webhooks,
+  manageWebhook,
   webhookDeliveries,
+  replayWebhook,
   messages,
+  sendMessage,
   myNotificationSettings,
+  setMyNotifications,
   // Account scope
   myKeys,
+  openMyGate,
 ]);
 
 export type { ToolDef } from "./types.js";

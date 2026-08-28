@@ -85,6 +85,8 @@ function stubClient() {
 
 const session: Session = {
   scope: "community",
+  environment: "dev",
+  baseUrl: "https://api.nimbio.dev",
   testMode: true,
   capabilities: ["open", "members", "settings", "gate_status"],
   communityId: "2590",

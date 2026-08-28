@@ -18,6 +18,8 @@ export const whoami: ToolDef = {
     const structured = {
       scope: s.scope,
       mode: s.testMode ? "test" : "live",
+      environment: s.environment,
+      api_host: s.baseUrl,
       community_id: s.communityId,
       key_name: s.keyName,
       capabilities: s.capabilities,
@@ -30,6 +32,7 @@ export const whoami: ToolDef = {
     };
     const lines = [
       `Key "${s.keyName ?? "(unnamed)"}" — ${s.scope} scope, ${s.testMode ? "test" : "live"} mode.`,
+      `Talking to ${s.baseUrl} (${s.environment}).`,
       s.communityId ? `Acting on community ${s.communityId}.` : "No community attached.",
       `${s.capabilities.length} capabilities: ${s.capabilities.join(", ") || "(none)"}.`,
       s.writesPermitted

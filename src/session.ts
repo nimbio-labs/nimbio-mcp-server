@@ -4,12 +4,23 @@
  * Exactly one call — `me()` — establishes it. That endpoint is
  * monthly-quota-exempt, so orienting costs the operator nothing.
  */
-import type { NimbioClient } from "@nimbio/community-api";
+import { resolveBaseUrl, type NimbioClient } from "@nimbio/community-api";
 import type { Config } from "./config.js";
 
 export interface Session {
   /** `"account"` or `"community"`. */
   scope: string;
+  /** The environment name this process was configured with. */
+  environment: string;
+  /**
+   * The API host actually being talked to.
+   *
+   * Reported everywhere the key's mode is reported. `NIMBIO_ENV` defaults to
+   * `prod`, which is right for a real user and a trap for anyone testing — a
+   * live key plus a forgotten variable is production. Naming the host makes
+   * that visible instead of silent.
+   */
+  baseUrl: string;
   /** True for a `nimbio_test_*` key: writes are simulated, no gate can open. */
   testMode: boolean;
   capabilities: string[];
@@ -51,6 +62,8 @@ export async function openSession(client: NimbioClient, config: Config): Promise
 
   return {
     scope: key.type ?? "unknown",
+    environment: config.environment,
+    baseUrl: resolveBaseUrl(config.environment),
     testMode,
     capabilities: key.capabilities,
     communityId: key.communityId,

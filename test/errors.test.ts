@@ -12,6 +12,8 @@ import type { Session } from "../src/session.js";
 
 const session: Session = {
   scope: "community",
+  environment: "dev",
+  baseUrl: "https://api.nimbio.dev",
   testMode: true,
   capabilities: ["open", "gate_status"],
   communityId: "2590",

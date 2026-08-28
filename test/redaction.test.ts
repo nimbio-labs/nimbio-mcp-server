@@ -6,6 +6,8 @@ import type { Session } from "../src/session.js";
 
 const session = (testMode: boolean): Session => ({
   scope: "community",
+  environment: "dev",
+  baseUrl: "https://api.nimbio.dev",
   testMode,
   capabilities: [],
   communityId: "2590",

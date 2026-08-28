@@ -14,6 +14,8 @@ const ALL_CAPS = [
 
 const session = (over: Partial<Session> = {}): Session => ({
   scope: "community",
+  environment: "dev",
+  baseUrl: "https://api.nimbio.dev",
   testMode: true,
   capabilities: ALL_CAPS,
   communityId: "2590",

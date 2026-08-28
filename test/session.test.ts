@@ -63,3 +63,16 @@ describe("openSession", () => {
     }
   });
 });
+
+describe("environment reporting", () => {
+  it("resolves the host from the environment name", async () => {
+    const dev = await openSession(client("test"), cfg({ environment: "dev" }));
+    expect(dev.baseUrl).toBe("https://api.nimbio.dev");
+    expect(dev.environment).toBe("dev");
+
+    // prod is the default when NIMBIO_ENV is unset, which is right for a real
+    // user and a trap for anyone testing — so it must be reported, not implied.
+    const prod = await openSession(client("test"), cfg({ environment: "prod" }));
+    expect(prod.baseUrl).toBe("https://api.nimbio.com");
+  });
+});

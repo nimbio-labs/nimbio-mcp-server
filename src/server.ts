@@ -66,6 +66,7 @@ export function instructions(session: Session, filtered: Filtered): string {
       : "This key is LIVE. Writes take real effect: gates physically open and residents " +
         "receive real messages. Confirm before acting.",
     "",
+    `Host: ${session.baseUrl} (${session.environment}).`,
     `Scope: ${session.scope}${session.communityId ? `, community ${session.communityId}` : ""}.`,
     `${filtered.registered.length} tools available.`,
   ];

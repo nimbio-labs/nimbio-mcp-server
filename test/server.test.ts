@@ -32,6 +32,8 @@ const client = {
 
 const session = (scope: string): Session => ({
   scope,
+  environment: "dev",
+  baseUrl: "https://api.nimbio.dev",
   testMode: true,
   capabilities: ["open"],
   communityId: "2590",

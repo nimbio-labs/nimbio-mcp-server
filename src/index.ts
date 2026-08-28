@@ -20,10 +20,17 @@ async function main(): Promise<void> {
   const filtered = selectTools(session, config);
 
   console.error(
-    `nimbio-mcp ${VERSION} — ${session.testMode ? "TEST" : "LIVE"} key, ${session.scope} scope` +
+    `nimbio-mcp ${VERSION} — ${session.testMode ? "TEST" : "LIVE"} key on ${session.baseUrl}` +
+      ` (${session.environment}), ${session.scope} scope` +
       (session.communityId ? `, community ${session.communityId}` : "") +
       ` — ${filtered.registered.length} tools, mode=${config.mode}`,
   );
+  if (!session.testMode && session.environment === "prod") {
+    console.error(
+      "nimbio-mcp: this is a LIVE key against PRODUCTION. Reads return real member data; " +
+        "any write that runs affects real gates and real people.",
+    );
+  }
   if (!session.writesPermitted && session.writesWithheldReason) {
     console.error(`nimbio-mcp: write tools withheld — ${session.writesWithheldReason}`);
   }

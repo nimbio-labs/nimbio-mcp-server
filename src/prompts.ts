@@ -78,9 +78,9 @@ export function registerPrompts(server: McpServer, session: Session): void {
       userPrompt(
         `I need to let ${who} in${when ? ` ${when}` : ""}. Look at what this community has ` +
           "available — guest links, access codes, GuestView Entry, short codes — and recommend " +
-          "one, saying why it fits this visit. If you suggest an access code, check " +
-          "nimbio_access_code_mode first: in single_entry mode the visitor types the owner's " +
-          "3-letter preamble followed by the code. Check the relevant feature is actually enabled " +
+          "one, saying why it fits this visit. If you suggest an access code and " +
+          "nimbio_access_code_mode is available, check it first: in single_entry mode the visitor " +
+          "types the owner's 3-letter preamble followed by the code. Check the relevant feature is actually enabled " +
           "before recommending it. Do not create anything until I agree, and when you do, do " +
           "not print the token or URL unless I ask for it.",
       ),

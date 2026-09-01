@@ -47,6 +47,10 @@ is sent. Everything below is safe to explore with one.
   guessing whether a real gate was involved.
 - **Tools you cannot use are not shown.** The tool list is filtered against the key's
   capabilities at startup, so the model never picks a tool destined to fail.
+- **Irreversible tools ask a human first.** Opening a gate, revoking a guest link, removing a
+  home, and switching the community's access-code system (which deletes every existing code)
+  all render their consequence and wait for confirmation. `unrestricted` mode skips that
+  step entirely — use it only where a person is already approving each call.
 
 ## Development
 

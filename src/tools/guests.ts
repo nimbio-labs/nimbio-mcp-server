@@ -140,6 +140,7 @@ export const listAccessCodes: ToolDef = {
 
     const structured = {
       feature_enabled: codes.featureEnabled,
+      access_code_mode: codes.accessCodeMode,
       access_codes: codes.accessCodes.map((a) => ({
         directory_access_code_id: a.directoryAccessCodeId,
         owner: a.ownerName,
@@ -166,7 +167,7 @@ export const listAccessCodes: ToolDef = {
     }
     return ok(
       ctx.session,
-      `${codes.accessCodes.length} access code(s):\n` +
+      `${codes.accessCodes.length} access code(s) (${codes.accessCodeMode ?? "per_member"} mode):\n` +
         codes.accessCodes
           .map(
             (a) =>

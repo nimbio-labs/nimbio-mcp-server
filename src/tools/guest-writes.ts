@@ -127,10 +127,12 @@ export const manageAccessCode: ToolDef = {
   name: "nimbio_manage_access_code",
   title: "Create, change or delete an access code",
   description:
-    "Numeric door codes. create needs the code itself and the gates it opens; update can " +
-    "disable it, change its gates or its expiry; delete removes it. Expiry is either " +
-    "expires_in_hours or expires_in_days, never both. A recurring weekly window is evaluated " +
-    "in the GATE's local timezone.",
+    "Door codes. create needs the code itself and the gates it opens; update can disable it, " +
+    "change its gates or its expiry; delete removes it. Expiry is either expires_in_hours or " +
+    "expires_in_days, never both. A recurring weekly window is evaluated in the GATE's local " +
+    "timezone. In a single_entry community (nimbio_access_code_mode) the created code is " +
+    "prefixed with the key owner's 3-letter preamble: create returns the full entry_code ONCE " +
+    "— that is what the visitor types.",
   annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: false, openWorldHint: true },
   capability: "access_codes",
   inputSchema: {
@@ -157,11 +159,18 @@ export const manageAccessCode: ToolDef = {
         expiresInHours: args.expires_in_hours as number | undefined,
         expiresInDays: args.expires_in_days as number | undefined,
       });
-      return wrote(ctx.session, `Access code ${res.directoryAccessCodeId} created.`, {
-        directory_access_code_id: res.directoryAccessCodeId,
-        result: res.result,
-        simulated: res.simulated,
-      });
+      return wrote(
+        ctx.session,
+        `Access code ${res.directoryAccessCodeId} created.` +
+          (res.entryCode ? ` Visitors type ${res.entryCode} (preamble ${res.accessCode?.preamble ?? ""} + code).` : ""),
+        {
+          directory_access_code_id: res.directoryAccessCodeId,
+          preamble: res.accessCode?.preamble ?? null,
+          entry_code: res.entryCode,
+          result: res.result,
+          simulated: res.simulated,
+        },
+      );
     }
     if (args.directory_access_code_id === undefined) {
       return fail(`${args.action} needs directory_access_code_id — from nimbio_list_access_codes.`);
@@ -183,6 +192,89 @@ export const manageAccessCode: ToolDef = {
       result: res.result,
       simulated: res.simulated,
     });
+  },
+};
+
+export const setAccessCodeMode: ToolDef = {
+  name: "nimbio_set_access_code_mode",
+  title: "Switch the access code system",
+  description:
+    "Move the community between the two access-code systems. per_member: visitors pick a " +
+    "resident, then type that resident's code. single_entry: one entry field; every member " +
+    "gets a unique 3-letter preamble and visitors type preamble + code. Switching in EITHER " +
+    "direction DELETES every existing access code in the community and notifies the members " +
+    "who lost one — nothing restores them. Switching to single_entry also assigns a preamble " +
+    "to every member. Read nimbio_access_code_mode first; a call with the current mode changes " +
+    "nothing.",
+  annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  capability: "access_code_mode",
+  inputSchema: {
+    mode: z.enum(["per_member", "single_entry"]),
+  },
+  endpoints: ["PUT /v1/community/access-codes/mode"],
+  async confirm(args, ctx) {
+    const mode = args.mode as string;
+    let facts = [
+      "Every existing access code in the community will be DELETED and cannot be restored.",
+      "Each member who loses a code is notified and must create a new one in the app.",
+    ];
+    try {
+      const status = await ctx.client.community.accessCodeMode();
+      const p = status.flipPreview;
+      if (status.mode === mode) {
+        facts = [`The community is already in ${mode} mode — this call will change nothing.`];
+      } else {
+        facts = [
+          `Current mode: ${status.mode ?? "unknown"} → new mode: ${mode}`,
+          `${p.codesToDelete ?? "?"} access code(s) held by ${p.membersAffected ?? "?"} member(s) will be ` +
+            "DELETED. Nothing restores them — each member must create a new code in the app.",
+          "Every affected member receives a notification that their codes were removed.",
+          ...(p.membersToAssignPreamble
+            ? [`${p.membersToAssignPreamble} member(s) will be given a 3-letter preamble automatically.`]
+            : []),
+        ];
+      }
+    } catch {
+      // Fall back to the generic warning.
+    }
+    return { action: `Switch access codes to ${mode}`, facts };
+  },
+  async handler(ctx, args) {
+    const mode = args.mode as "per_member" | "single_entry";
+    const res = await ctx.client.community.setAccessCodeMode(mode, { confirm: true });
+    const structured = {
+      mode: res.mode,
+      changed: res.changed,
+      deleted_codes: res.deletedCodes,
+      notified_members: res.notifiedMembers,
+      would_change: res.wouldChange
+        ? {
+            new_mode: res.wouldChange.newMode,
+            codes_to_delete: res.wouldChange.codesToDelete,
+            members_affected: res.wouldChange.membersAffected,
+            members_to_assign_preamble: res.wouldChange.membersToAssignPreamble,
+          }
+        : null,
+      result: res.result,
+      simulated: res.simulated,
+    };
+    if (res.simulated && res.wouldChange) {
+      return wrote(
+        ctx.session,
+        `Would switch to ${mode}: ${res.wouldChange.codesToDelete ?? "?"} code(s) deleted, ` +
+          `${res.wouldChange.membersAffected ?? "?"} member(s) notified.`,
+        structured,
+      );
+    }
+    if (!res.changed) {
+      return wrote(ctx.session, `Already in ${res.mode ?? mode} mode — nothing changed.`, structured);
+    }
+    return wrote(
+      ctx.session,
+      `Access codes switched to ${res.mode ?? mode}. ${res.deletedCodes ?? 0} code(s) deleted, ` +
+        `${res.notifiedMembers ?? 0} member(s) notified.`,
+      structured,
+    );
   },
 };
 

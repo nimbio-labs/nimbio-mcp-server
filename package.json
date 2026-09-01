@@ -1,6 +1,6 @@
 {
   "name": "@nimbio/mcp-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Model Context Protocol server for the Nimbio community API — gates, members, guest access and access logs, exposed to LLM agents as tools.",
   "license": "MIT",
   "type": "module",
@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
-    "@nimbio/community-api": "^0.6.0",
+    "@nimbio/community-api": "^0.7.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

@@ -108,10 +108,11 @@ export const listAccessCodes: ToolDef = {
   name: "nimbio_list_access_codes",
   title: "List access codes",
   description:
-    "Numeric door codes issued to residents or visitors, which gates they open, whether they " +
-    "expire or carry a schedule, and optionally their redemption history and the gates codes " +
-    "are allowed to cover. Codes come back masked — the API never returns a full code after " +
-    "creation.",
+    "Door codes issued to residents or visitors, which gates they open, whether they expire " +
+    "or carry a schedule, and optionally their redemption history and the gates codes are " +
+    "allowed to cover. Codes come back masked — the API never returns a full code after " +
+    "creation. In a single_entry community each row also carries the owner's 3-letter " +
+    "preamble and entry_code_masked (preamble + masked code) — see nimbio_access_code_mode.",
   annotations: { readOnlyHint: true, openWorldHint: false },
   capability: "access_codes",
   inputSchema: {
@@ -147,6 +148,8 @@ export const listAccessCodes: ToolDef = {
         expires_at: a.expiresAt,
         has_schedule: a.hasSchedule,
         api_managed: a.apiManaged,
+        preamble: a.preamble,
+        entry_code_masked: a.entryCodeMasked,
         latches: a.latches.map((l) => l.latchName),
       })),
       logs: logs ? logs.logs : null,
@@ -167,10 +170,48 @@ export const listAccessCodes: ToolDef = {
         codes.accessCodes
           .map(
             (a) =>
-              `- [${a.directoryAccessCodeId}] ${a.ownerName ?? "(unassigned)"} ${a.codeMasked ?? ""}` +
+              `- [${a.directoryAccessCodeId}] ${a.ownerName ?? "(unassigned)"} ` +
+              `${a.entryCodeMasked ?? a.codeMasked ?? ""}` +
               `${a.disabled ? " DISABLED" : ""}${a.expiresAt ? ` expires ${a.expiresAt}` : ""}`,
           )
           .join("\n"),
+      structured,
+    );
+  },
+};
+
+export const accessCodeMode: ToolDef = {
+  name: "nimbio_access_code_mode",
+  title: "Access code entry mode",
+  description:
+    "Which of the two access-code systems this community runs, plus a dry run of switching to " +
+    "the other one. per_member: a visitor picks a resident in the directory, then types that " +
+    "resident's code. single_entry: one entry field — every member carries a unique 3-letter " +
+    "preamble and the visitor types preamble + code (e.g. ESM481502). flip_preview reports how " +
+    "many codes a switch would DELETE and how many members it would affect; read it before " +
+    "calling nimbio_set_access_code_mode.",
+  annotations: { readOnlyHint: true, openWorldHint: false },
+  capability: "access_code_mode",
+  endpoints: ["GET /v1/community/access-codes/mode"],
+  async handler(ctx) {
+    const status = await ctx.client.community.accessCodeMode();
+    const p = status.flipPreview;
+    const structured = {
+      mode: status.mode,
+      flip_preview: {
+        new_mode: p.newMode,
+        codes_to_delete: p.codesToDelete,
+        members_affected: p.membersAffected,
+        members_to_assign_preamble: p.membersToAssignPreamble,
+      },
+    };
+    return ok(
+      ctx.session,
+      `Access code mode: ${status.mode ?? "unknown"}.\n` +
+        `Switching to ${p.newMode ?? "the other mode"} would delete ${p.codesToDelete ?? "?"} ` +
+        `code(s) held by ${p.membersAffected ?? "?"} member(s)` +
+        (p.membersToAssignPreamble ? ` and assign a preamble to ${p.membersToAssignPreamble} member(s)` : "") +
+        ".",
       structured,
     );
   },

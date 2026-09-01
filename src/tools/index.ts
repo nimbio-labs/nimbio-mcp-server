@@ -28,11 +28,18 @@ import {
   updateKey,
   setKeySchedule,
 } from "./member-writes.js";
-import { listGuestLinks, listAccessCodes, guestViewEntry, shortCodes } from "./guests.js";
+import {
+  listGuestLinks,
+  listAccessCodes,
+  accessCodeMode,
+  guestViewEntry,
+  shortCodes,
+} from "./guests.js";
 import {
   createGuestLink,
   revokeGuestLink,
   manageAccessCode,
+  setAccessCodeMode,
   configureGuestViewEntry,
   manageShortCode,
 } from "./guest-writes.js";
@@ -85,6 +92,8 @@ export const TOOLS: readonly ToolDef[] = Object.freeze([
   revokeGuestLink,
   listAccessCodes,
   manageAccessCode,
+  accessCodeMode,
+  setAccessCodeMode,
   guestViewEntry,
   configureGuestViewEntry,
   shortCodes,

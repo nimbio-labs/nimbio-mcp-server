@@ -179,6 +179,8 @@ const ARGS: Record<string, Record<string, unknown>[]> = {
   ],
   nimbio_revoke_guest_link: [{ guest_link_id: 1 }],
   nimbio_list_access_codes: [{}, { include_logs: true, include_eligible_latches: true }],
+  nimbio_access_code_mode: [{}],
+  nimbio_set_access_code_mode: [{ mode: "single_entry" }, { mode: "per_member" }],
   nimbio_manage_access_code: [
     { action: "create", code: "1234", latch_ids: ["L1"] },
     { action: "create" },

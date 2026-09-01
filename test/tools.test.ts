@@ -9,7 +9,7 @@ const ALL_CAPS = [
   "open", "gate_status", "key_statuses", "hold_opens", "webhooks", "members", "messages",
   "access_logs", "key_schedules", "key_usage", "change_logs", "homes", "short_codes",
   "guest_view_entry", "access_codes", "guest_links", "map", "open_notifications", "settings",
-  "sense_lines", "nfc_tags",
+  "sense_lines", "nfc_tags", "access_code_mode",
 ];
 
 const session = (over: Partial<Session> = {}): Session => ({
@@ -89,6 +89,7 @@ describe("the tool registry", () => {
         "nimbio_replay_webhook",
         "nimbio_revoke_guest_link",
         "nimbio_send_message",
+        "nimbio_set_access_code_mode",
         "nimbio_set_hold_open",
       ].sort(),
     );

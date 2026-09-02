@@ -6,7 +6,8 @@ Exposes gates, members, guest access and access logs to LLM agents as MCP tools.
 Built on [`@nimbio/community-api`](https://www.npmjs.com/package/@nimbio/community-api) —
 it adds no HTTP, auth, retry or caching code of its own.
 
-> **Status: in development.** Not yet published.
+> **Status:** built and tested, awaiting first publish. Requires
+> `@nimbio/community-api` 0.7.0, which is not on npm yet.
 
 ## Quick start
 
@@ -26,6 +27,24 @@ it adds no HTTP, auth, retry or caching code of its own.
 **Start with a `nimbio_test_*` key.** Test keys run the full pipeline — auth, rate
 limiting, scope, validation — and then simulate the effect: no gate opens, no message
 is sent. Everything below is safe to explore with one.
+
+## What it can do
+
+54 tools, grouped the way a community manager thinks rather than the way the REST
+endpoints are organised:
+
+| Area | Examples |
+|------|----------|
+| Orientation | who this key is, what the community looks like, which features are on |
+| Gates | live status, the roster and map, opening one, hold opens and their schedules |
+| People | the roster, keys and access schedules, adding, approving, granting and revoking |
+| Guests | guest links, access codes and their entry mode, GuestView Entry, short codes |
+| Audit | who opened what, whether the gate physically moved, who changed the rules, usage reports |
+| Config & hardware | settings, homes, sense lines, NFC tags, geofences |
+| Plumbing | webhooks, delivery inspection and replay, broadcasts, your own alert settings |
+
+Plus four resources the agent can read directly — including the schedule rules that
+catch people out — and four prompts to start from.
 
 ## Configuration
 
@@ -63,7 +82,13 @@ npm run build
 NIMBIO_API_KEY=nimbio_test_... NIMBIO_ENV=dev node scripts/smoke.mjs
 ```
 
-Design and rationale: `nimbioCore/docs/mcp-server-plan.md`.
+```bash
+npm run check    # what CI runs: version guard, lint, types, coverage
+npm run surface  # regenerate surface.json after changing the tool registry
+```
+
+Design and rationale: `nimbioCore/docs/mcp-server-plan.md`. Repo conventions and
+the rules that are design commitments rather than preferences: `CLAUDE.md`.
 
 ## License
 

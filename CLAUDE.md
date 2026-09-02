@@ -83,7 +83,7 @@ NIMBIO_API_KEY=nimbio_test_... NIMBIO_ENV=dev NIMBIO_MCP_MODE=write \
   node scripts/confirm-check.mjs      # exercises the token fallback specifically
 ```
 
-Dev fixture keys live in `nimbioCore/.dev-secrets/` (`e2e-community-key` is a test key on community 2590; `e2e-community-key-live` is a **live** key on community 48, for exercising the live guard). **Always pass `NIMBIO_ENV=dev`** — the default is `prod`.
+Dev fixture keys live in `nimbioCore/.dev-secrets/` — a test key for everyday work, and a live one kept solely for exercising the live-key guard. **Always pass `NIMBIO_ENV=dev`**: the default is `prod`, and a live key with a forgotten `NIMBIO_ENV` is production.
 
 ## Testing
 

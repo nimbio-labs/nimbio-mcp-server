@@ -98,7 +98,7 @@ Coverage thresholds sit just under what the suite achieves. Branches is lower th
 ## Releasing
 
 1. Update `CHANGELOG.md`, `package.json` and `src/version.ts` — `npm run version:check` enforces all three agree.
-2. Update `nimbioCore/changelogs/mcp-server.md` and `marketing-changelogs/mcp-server.md` (stamp `## In Progress` with the version and date).
+2. Update `nimbioCore/changelogs/mcp-server.md` and `nimbioCore/marketing-changelogs/mcp-server.md` (stamp `## In Progress` with the version and date).
 3. `npm run surface` if the registry changed; commit `surface.json`.
 4. `cd ~/Documents/nimbioCore && ./nimbio.sh sdk-parity --include mcp --check`
 5. Tag `vX.Y.Z` and push the tag — `.github/workflows/publish.yml` publishes via npm Trusted Publishing (OIDC, no stored token).

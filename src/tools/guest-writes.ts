@@ -1,6 +1,6 @@
 /** Guest access writes — issuing and revoking ways in for people without accounts. */
 import { z } from "zod";
-import { wrote, fail } from "../format.js";
+import { ok, wrote, fail } from "../format.js";
 import { redactLink, REDACTION_NOTE } from "../redact.js";
 import type { ToolDef } from "./types.js";
 
@@ -267,7 +267,7 @@ export const setAccessCodeMode: ToolDef = {
       );
     }
     if (!res.changed) {
-      return wrote(ctx.session, `Already in ${res.mode ?? mode} mode — nothing changed.`, structured);
+      return ok(ctx.session, `Already in ${res.mode ?? mode} mode — nothing changed.`, structured);
     }
     return wrote(
       ctx.session,

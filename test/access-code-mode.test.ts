@@ -141,6 +141,8 @@ describe("nimbio_set_access_code_mode handler", () => {
     const ctx = ctxWith({ setAccessCodeMode: async (mode: string) => change({ mode }) });
     const res = await write.handler(ctx, { mode: "per_member" });
     expect(res.content[0]?.text).toMatch(/Already in per_member mode — nothing changed/);
+    // A no-op is not a write that "really happened" — it must not carry the DONE banner.
+    expect(res.content[0]?.text).not.toMatch(/DONE|SIMULATED/);
   });
 
   it("labels a test-key dry run as simulated with the would-change counts", async () => {

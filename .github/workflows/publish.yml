@@ -5,8 +5,9 @@ name: Publish to npm
 # automatically.
 #
 # One-time setup (after the first release exists on npm):
-#   1. Publish v0.1.0 once manually (`npm publish`) so the package exists, OR
-#      let this workflow do the first publish with a temporary NODE_AUTH_TOKEN.
+#   1. npm requires a package to EXIST before a trusted publisher can be added
+#      to it, so the first publish must be manual:
+#        npm login && npm publish        (publishConfig.access makes it public)
 #   2. On npmjs.com > @nimbio/mcp-server > Settings > Trusted Publisher, add
 #      GitHub Actions with:
 #        repository: nimbio-labs/nimbio-mcp-server
@@ -56,5 +57,7 @@ jobs:
       - name: Build
         run: npm run build
 
+      # --provenance here rather than publishConfig.provenance, so a manual
+      # first publish (which has no CI OIDC to attest with) still works.
       - name: Publish
-        run: npm publish
+        run: npm publish --provenance

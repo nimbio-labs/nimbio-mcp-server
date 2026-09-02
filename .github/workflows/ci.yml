@@ -6,12 +6,14 @@ on:
   pull_request:
 
 jobs:
+  # Full verification. Node 20+ only, because vitest 4 requires it — see the
+  # `compat` job below for why that does not narrow what the package supports.
   test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node-version: ["18", "20", "22"]
+        node-version: ["20", "22"]
     steps:
       - uses: actions/checkout@v4
 
@@ -36,21 +38,31 @@ jobs:
       - name: Build
         run: npm run build
 
-      # The build must be runnable, not merely produced: a server that cannot
-      # start is not caught by any unit test. It is expected to exit non-zero
-      # here (no API key), but it must fail with its own diagnostic rather than
-      # a module-resolution or syntax error.
       - name: Smoke the built entrypoint
-        run: |
-          set +e
-          OUT="$(node dist/index.js 2>&1)"
-          RC=$?
-          echo "$OUT"
-          if [ "$RC" -eq 0 ]; then
-            echo "::error::server exited 0 with no API key; it should refuse to start" >&2
-            exit 1
-          fi
-          case "$OUT" in
-            *NIMBIO_API_KEY*) echo "refused to start with the expected message" ;;
-            *) echo "::error::unexpected startup failure: $OUT" >&2; exit 1 ;;
-          esac
+        run: bash .github/smoke-entrypoint.sh
+
+  # The package declares `engines: node >= 18`, and its runtime dependencies
+  # (@modelcontextprotocol/sdk, @nimbio/community-api) both support 18. The test
+  # runner does not: vitest 4 needs Node 20+. So 18 is verified the way it
+  # actually matters — the shipped artifact builds and boots — rather than
+  # dropped from support because a devDependency moved on.
+  compat:
+    name: node-18 (build + boot only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Smoke the built entrypoint
+        run: bash .github/smoke-entrypoint.sh

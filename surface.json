@@ -1,0 +1,1300 @@
+{
+  "client": "mcp",
+  "class": "consumer",
+  "package": "@nimbio/mcp-server",
+  "version": "0.2.0",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/v1/account/keys",
+      "tools": [
+        "nimbio_my_keys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/account/keys/{}/latches/{}/open",
+      "tools": [
+        "nimbio_open_my_gate"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community",
+      "tools": [
+        "nimbio_community_overview"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/access-codes",
+      "tools": [
+        "nimbio_list_access_codes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/access-codes",
+      "tools": [
+        "nimbio_manage_access_code"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/access-codes/{}",
+      "tools": [
+        "nimbio_manage_access_code"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/access-codes/{}",
+      "tools": [
+        "nimbio_manage_access_code"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/access-codes/eligible-latches",
+      "tools": [
+        "nimbio_list_access_codes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/access-codes/logs",
+      "tools": [
+        "nimbio_list_access_codes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/access-codes/mode",
+      "tools": [
+        "nimbio_access_code_mode"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/access-codes/mode",
+      "tools": [
+        "nimbio_set_access_code_mode"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/access-logs",
+      "tools": [
+        "nimbio_access_log"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/change-logs",
+      "tools": [
+        "nimbio_change_log"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/gate-status",
+      "tools": [
+        "nimbio_community_overview",
+        "nimbio_gate_status"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/gate-status-log",
+      "tools": [
+        "nimbio_gate_status_log"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/guest-links",
+      "tools": [
+        "nimbio_list_guest_links"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/guest-links",
+      "tools": [
+        "nimbio_create_guest_link"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/guest-links/{}",
+      "tools": [
+        "nimbio_revoke_guest_link"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/guest-links/latch-exclusions",
+      "tools": [
+        "nimbio_list_guest_links"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/guest-links/logs",
+      "tools": [
+        "nimbio_list_guest_links"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/guest-view-entry",
+      "tools": [
+        "nimbio_guest_view_entry"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/guest-view-entry",
+      "tools": [
+        "nimbio_configure_guest_view_entry"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/guest-view-entry/eligible-latches",
+      "tools": [
+        "nimbio_configure_guest_view_entry"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/guest-view-entry/logs",
+      "tools": [
+        "nimbio_guest_view_entry"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/guest-view-entry/schedule",
+      "tools": [
+        "nimbio_configure_guest_view_entry"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/guest-view-entry/schedule/{}",
+      "tools": [
+        "nimbio_configure_guest_view_entry"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/hold-opens",
+      "tools": [
+        "nimbio_hold_opens"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/homes",
+      "tools": [
+        "nimbio_homes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/homes",
+      "tools": [
+        "nimbio_manage_home"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/homes/{}",
+      "tools": [
+        "nimbio_remove_home"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/homes/{}",
+      "tools": [
+        "nimbio_homes"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/homes/{}",
+      "tools": [
+        "nimbio_manage_home"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/key-schedules",
+      "tools": [
+        "nimbio_key_schedule"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/key-statuses",
+      "tools": [
+        "nimbio_key_statuses",
+        "nimbio_list_gates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/key-usage",
+      "tools": [
+        "nimbio_key_usage"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/keys",
+      "tools": [
+        "nimbio_list_keys"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/keys/{}",
+      "tools": [
+        "nimbio_update_key"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/keys/{}/schedule",
+      "tools": [
+        "nimbio_key_schedule"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/keys/{}/schedule",
+      "tools": [
+        "nimbio_set_key_schedule"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/latches/{}/geofence",
+      "tools": [
+        "nimbio_update_geofence"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/latches/{}/hold-open",
+      "tools": [
+        "nimbio_set_hold_open"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/latches/{}/hold-open/disabled-until",
+      "tools": [
+        "nimbio_set_hold_open"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/latches/{}/hold-open/events",
+      "tools": [
+        "nimbio_add_hold_open_window"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/latches/{}/hold-open/events/{}",
+      "tools": [
+        "nimbio_remove_hold_open_window"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/latches/{}/hold-open/recurring",
+      "tools": [
+        "nimbio_manage_recurring_hold_open"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/latches/{}/hold-open/recurring/{}",
+      "tools": [
+        "nimbio_manage_recurring_hold_open"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/latches/{}/hold-open/recurring/{}",
+      "tools": [
+        "nimbio_manage_recurring_hold_open"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/latches/{}/open",
+      "tools": [
+        "nimbio_open_gate"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/map",
+      "tools": [
+        "nimbio_list_gates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/members",
+      "tools": [
+        "nimbio_list_members"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members",
+      "tools": [
+        "nimbio_add_members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/members/{}",
+      "tools": [
+        "nimbio_list_members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/members/{}/access-logs",
+      "tools": [
+        "nimbio_access_log"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/{}/approve",
+      "tools": [
+        "nimbio_approve_member"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/{}/grant-keys",
+      "tools": [
+        "nimbio_manage_member_keys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/{}/keys-disabled",
+      "tools": [
+        "nimbio_manage_member_keys"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/members/{}/move-out-date",
+      "tools": [
+        "nimbio_manage_home"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/{}/revoke-keys",
+      "tools": [
+        "nimbio_manage_member_keys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/bulk-add",
+      "tools": [
+        "nimbio_add_members"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/keys/bulk-disabled",
+      "tools": [
+        "nimbio_manage_member_keys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/keys/bulk-grant",
+      "tools": [
+        "nimbio_manage_member_keys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/members/keys/bulk-revoke",
+      "tools": [
+        "nimbio_manage_member_keys"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/members/page",
+      "tools": [
+        "nimbio_list_members"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/messages",
+      "tools": [
+        "nimbio_messages"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/messages",
+      "tools": [
+        "nimbio_send_message"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/my-notification-settings",
+      "tools": [
+        "nimbio_my_notification_settings"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/my-notification-settings",
+      "tools": [
+        "nimbio_set_my_notifications"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/my-notification-settings/quiet-hours",
+      "tools": [
+        "nimbio_set_my_notifications"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/my-notification-settings/quiet-hours/{}",
+      "tools": [
+        "nimbio_set_my_notifications"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/nfc-tags",
+      "tools": [
+        "nimbio_nfc_tags"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/nfc-tags/{}",
+      "tools": [
+        "nimbio_nfc_tags"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/nfc-tags/{}",
+      "tools": [
+        "nimbio_update_nfc_tag"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/nfc-tags/scan-log",
+      "tools": [
+        "nimbio_nfc_tags"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/sense-lines",
+      "tools": [
+        "nimbio_sense_lines"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/sense-lines/{}",
+      "tools": [
+        "nimbio_sense_lines"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/sense-lines/{}",
+      "tools": [
+        "nimbio_update_sense_line"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/sense-lines/records",
+      "tools": [
+        "nimbio_sense_lines"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/settings",
+      "tools": [
+        "nimbio_community_overview",
+        "nimbio_settings"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/settings",
+      "tools": [
+        "nimbio_update_settings"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/short-codes",
+      "tools": [
+        "nimbio_short_codes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/short-codes",
+      "tools": [
+        "nimbio_manage_short_code"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/community/short-codes/{}",
+      "tools": [
+        "nimbio_manage_short_code"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/webhook-events",
+      "tools": [
+        "nimbio_webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/webhooks",
+      "tools": [
+        "nimbio_webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/webhooks",
+      "tools": [
+        "nimbio_manage_webhook"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/community/webhooks/{}",
+      "tools": [
+        "nimbio_manage_webhook"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/community/webhooks/{}",
+      "tools": [
+        "nimbio_manage_webhook"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/community/webhooks/{}/deliveries",
+      "tools": [
+        "nimbio_webhook_deliveries"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/webhooks/{}/deliveries/{}/replay",
+      "tools": [
+        "nimbio_replay_webhook"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/webhooks/{}/deliveries/retry-failed",
+      "tools": [
+        "nimbio_replay_webhook"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/webhooks/{}/rotate-secret",
+      "tools": [
+        "nimbio_manage_webhook"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/community/webhooks/{}/test",
+      "tools": [
+        "nimbio_manage_webhook"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/me",
+      "tools": [
+        "nimbio_whoami"
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "nimbio_whoami",
+      "scope": "any",
+      "capability": null,
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/me"
+      ]
+    },
+    {
+      "name": "nimbio_community_overview",
+      "scope": "community",
+      "capability": null,
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community",
+        "GET /v1/community/gate-status",
+        "GET /v1/community/settings"
+      ]
+    },
+    {
+      "name": "nimbio_list_gates",
+      "scope": "community",
+      "capability": "map",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/key-statuses",
+        "GET /v1/community/map"
+      ]
+    },
+    {
+      "name": "nimbio_gate_status",
+      "scope": "community",
+      "capability": "gate_status",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/gate-status"
+      ]
+    },
+    {
+      "name": "nimbio_key_statuses",
+      "scope": "community",
+      "capability": "key_statuses",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/key-statuses"
+      ]
+    },
+    {
+      "name": "nimbio_open_gate",
+      "scope": "community",
+      "capability": "open",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "POST /v1/community/latches/{}/open"
+      ]
+    },
+    {
+      "name": "nimbio_hold_opens",
+      "scope": "community",
+      "capability": "hold_opens",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/hold-opens"
+      ]
+    },
+    {
+      "name": "nimbio_set_hold_open",
+      "scope": "community",
+      "capability": "hold_opens",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "PUT /v1/community/latches/{}/hold-open",
+        "PUT /v1/community/latches/{}/hold-open/disabled-until"
+      ]
+    },
+    {
+      "name": "nimbio_add_hold_open_window",
+      "scope": "community",
+      "capability": "hold_opens",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "POST /v1/community/latches/{}/hold-open/events"
+      ]
+    },
+    {
+      "name": "nimbio_remove_hold_open_window",
+      "scope": "community",
+      "capability": "hold_opens",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "DELETE /v1/community/latches/{}/hold-open/events/{}"
+      ]
+    },
+    {
+      "name": "nimbio_manage_recurring_hold_open",
+      "scope": "community",
+      "capability": "hold_opens",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "DELETE /v1/community/latches/{}/hold-open/recurring/{}",
+        "PATCH /v1/community/latches/{}/hold-open/recurring/{}",
+        "POST /v1/community/latches/{}/hold-open/recurring"
+      ]
+    },
+    {
+      "name": "nimbio_list_members",
+      "scope": "community",
+      "capability": "members",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/members",
+        "GET /v1/community/members/page",
+        "GET /v1/community/members/{}"
+      ]
+    },
+    {
+      "name": "nimbio_list_keys",
+      "scope": "community",
+      "capability": "members",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/keys"
+      ]
+    },
+    {
+      "name": "nimbio_key_schedule",
+      "scope": "community",
+      "capability": "key_schedules",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/key-schedules",
+        "GET /v1/community/keys/{}/schedule"
+      ]
+    },
+    {
+      "name": "nimbio_add_members",
+      "scope": "community",
+      "capability": "members",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "POST /v1/community/members",
+        "POST /v1/community/members/bulk-add"
+      ]
+    },
+    {
+      "name": "nimbio_approve_member",
+      "scope": "community",
+      "capability": "members",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "POST /v1/community/members/{}/approve"
+      ]
+    },
+    {
+      "name": "nimbio_manage_member_keys",
+      "scope": "community",
+      "capability": "members",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "POST /v1/community/members/keys/bulk-disabled",
+        "POST /v1/community/members/keys/bulk-grant",
+        "POST /v1/community/members/keys/bulk-revoke",
+        "POST /v1/community/members/{}/grant-keys",
+        "POST /v1/community/members/{}/keys-disabled",
+        "POST /v1/community/members/{}/revoke-keys"
+      ]
+    },
+    {
+      "name": "nimbio_update_key",
+      "scope": "community",
+      "capability": "members",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "PATCH /v1/community/keys/{}"
+      ]
+    },
+    {
+      "name": "nimbio_set_key_schedule",
+      "scope": "community",
+      "capability": "key_schedules",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "PUT /v1/community/keys/{}/schedule"
+      ]
+    },
+    {
+      "name": "nimbio_list_guest_links",
+      "scope": "community",
+      "capability": "guest_links",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/guest-links",
+        "GET /v1/community/guest-links/latch-exclusions",
+        "GET /v1/community/guest-links/logs"
+      ]
+    },
+    {
+      "name": "nimbio_create_guest_link",
+      "scope": "community",
+      "capability": "guest_links",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "POST /v1/community/guest-links"
+      ]
+    },
+    {
+      "name": "nimbio_revoke_guest_link",
+      "scope": "community",
+      "capability": "guest_links",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "DELETE /v1/community/guest-links/{}"
+      ]
+    },
+    {
+      "name": "nimbio_list_access_codes",
+      "scope": "community",
+      "capability": "access_codes",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/access-codes",
+        "GET /v1/community/access-codes/eligible-latches",
+        "GET /v1/community/access-codes/logs"
+      ]
+    },
+    {
+      "name": "nimbio_manage_access_code",
+      "scope": "community",
+      "capability": "access_codes",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "DELETE /v1/community/access-codes/{}",
+        "PATCH /v1/community/access-codes/{}",
+        "POST /v1/community/access-codes"
+      ]
+    },
+    {
+      "name": "nimbio_access_code_mode",
+      "scope": "community",
+      "capability": "access_code_mode",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/access-codes/mode"
+      ]
+    },
+    {
+      "name": "nimbio_set_access_code_mode",
+      "scope": "community",
+      "capability": "access_code_mode",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "PUT /v1/community/access-codes/mode"
+      ]
+    },
+    {
+      "name": "nimbio_guest_view_entry",
+      "scope": "community",
+      "capability": "guest_view_entry",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/guest-view-entry",
+        "GET /v1/community/guest-view-entry/logs"
+      ]
+    },
+    {
+      "name": "nimbio_configure_guest_view_entry",
+      "scope": "community",
+      "capability": "guest_view_entry",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "DELETE /v1/community/guest-view-entry/schedule/{}",
+        "POST /v1/community/guest-view-entry/schedule",
+        "PUT /v1/community/guest-view-entry",
+        "PUT /v1/community/guest-view-entry/eligible-latches"
+      ]
+    },
+    {
+      "name": "nimbio_short_codes",
+      "scope": "community",
+      "capability": "short_codes",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/short-codes"
+      ]
+    },
+    {
+      "name": "nimbio_manage_short_code",
+      "scope": "community",
+      "capability": "short_codes",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "POST /v1/community/short-codes",
+        "PUT /v1/community/short-codes/{}"
+      ]
+    },
+    {
+      "name": "nimbio_access_log",
+      "scope": "community",
+      "capability": "access_logs",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/access-logs",
+        "GET /v1/community/members/{}/access-logs"
+      ]
+    },
+    {
+      "name": "nimbio_gate_status_log",
+      "scope": "community",
+      "capability": "access_logs",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/gate-status-log"
+      ]
+    },
+    {
+      "name": "nimbio_change_log",
+      "scope": "community",
+      "capability": "change_logs",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/change-logs"
+      ]
+    },
+    {
+      "name": "nimbio_key_usage",
+      "scope": "community",
+      "capability": "key_usage",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/key-usage"
+      ]
+    },
+    {
+      "name": "nimbio_settings",
+      "scope": "community",
+      "capability": "settings",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/settings"
+      ]
+    },
+    {
+      "name": "nimbio_update_settings",
+      "scope": "community",
+      "capability": "settings",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "PATCH /v1/community/settings"
+      ]
+    },
+    {
+      "name": "nimbio_homes",
+      "scope": "community",
+      "capability": "homes",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/homes",
+        "GET /v1/community/homes/{}"
+      ]
+    },
+    {
+      "name": "nimbio_manage_home",
+      "scope": "community",
+      "capability": "homes",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "PATCH /v1/community/homes/{}",
+        "POST /v1/community/homes",
+        "PUT /v1/community/members/{}/move-out-date"
+      ]
+    },
+    {
+      "name": "nimbio_remove_home",
+      "scope": "community",
+      "capability": "homes",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "DELETE /v1/community/homes/{}"
+      ]
+    },
+    {
+      "name": "nimbio_sense_lines",
+      "scope": "community",
+      "capability": "sense_lines",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/sense-lines",
+        "GET /v1/community/sense-lines/records",
+        "GET /v1/community/sense-lines/{}"
+      ]
+    },
+    {
+      "name": "nimbio_update_sense_line",
+      "scope": "community",
+      "capability": "sense_lines",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "PATCH /v1/community/sense-lines/{}"
+      ]
+    },
+    {
+      "name": "nimbio_nfc_tags",
+      "scope": "community",
+      "capability": "nfc_tags",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/nfc-tags",
+        "GET /v1/community/nfc-tags/scan-log",
+        "GET /v1/community/nfc-tags/{}"
+      ]
+    },
+    {
+      "name": "nimbio_update_nfc_tag",
+      "scope": "community",
+      "capability": "nfc_tags",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "PATCH /v1/community/nfc-tags/{}"
+      ]
+    },
+    {
+      "name": "nimbio_update_geofence",
+      "scope": "community",
+      "capability": "map",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "PATCH /v1/community/latches/{}/geofence"
+      ]
+    },
+    {
+      "name": "nimbio_webhooks",
+      "scope": "community",
+      "capability": "webhooks",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/webhook-events",
+        "GET /v1/community/webhooks"
+      ]
+    },
+    {
+      "name": "nimbio_manage_webhook",
+      "scope": "community",
+      "capability": "webhooks",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": false,
+      "endpoints": [
+        "DELETE /v1/community/webhooks/{}",
+        "PATCH /v1/community/webhooks/{}",
+        "POST /v1/community/webhooks",
+        "POST /v1/community/webhooks/{}/rotate-secret",
+        "POST /v1/community/webhooks/{}/test"
+      ]
+    },
+    {
+      "name": "nimbio_webhook_deliveries",
+      "scope": "community",
+      "capability": "webhooks",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/webhooks/{}/deliveries"
+      ]
+    },
+    {
+      "name": "nimbio_replay_webhook",
+      "scope": "community",
+      "capability": "webhooks",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "POST /v1/community/webhooks/{}/deliveries/retry-failed",
+        "POST /v1/community/webhooks/{}/deliveries/{}/replay"
+      ]
+    },
+    {
+      "name": "nimbio_messages",
+      "scope": "community",
+      "capability": "messages",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/messages"
+      ]
+    },
+    {
+      "name": "nimbio_send_message",
+      "scope": "community",
+      "capability": "messages",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "POST /v1/community/messages"
+      ]
+    },
+    {
+      "name": "nimbio_my_notification_settings",
+      "scope": "community",
+      "capability": "open_notifications",
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/community/my-notification-settings"
+      ]
+    },
+    {
+      "name": "nimbio_set_my_notifications",
+      "scope": "community",
+      "capability": "open_notifications",
+      "readOnly": false,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "DELETE /v1/community/my-notification-settings/quiet-hours/{}",
+        "POST /v1/community/my-notification-settings/quiet-hours",
+        "PUT /v1/community/my-notification-settings"
+      ]
+    },
+    {
+      "name": "nimbio_my_keys",
+      "scope": "account",
+      "capability": null,
+      "readOnly": true,
+      "destructive": false,
+      "confirms": false,
+      "endpoints": [
+        "GET /v1/account/keys"
+      ]
+    },
+    {
+      "name": "nimbio_open_my_gate",
+      "scope": "account",
+      "capability": "open",
+      "readOnly": false,
+      "destructive": true,
+      "confirms": true,
+      "endpoints": [
+        "POST /v1/account/keys/{}/latches/{}/open"
+      ]
+    }
+  ]
+}

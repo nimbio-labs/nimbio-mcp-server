@@ -3,7 +3,10 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "coverage/**", "node_modules/**"],
+    // Nested globs, not bare `dist/**`: a git worktree under .claude/ carries
+    // its own built dist/ and node_modules/, and linting another checkout's
+    // build output fails on code we never wrote.
+    ignores: ["**/dist/**", "**/coverage/**", "**/node_modules/**", ".claude/**"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

@@ -1,7 +1,7 @@
 {
   "name": "@nimbio/mcp-server",
   "version": "0.2.0",
-  "description": "Model Context Protocol server for the Nimbio community API — gates, members, guest access and access logs, exposed to LLM agents as tools.",
+  "description": "Model Context Protocol server for the Nimbio community API \u2014 gates, members, guest access and access logs, exposed to LLM agents as tools.",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -31,7 +31,10 @@
     "coverage": "vitest run --coverage",
     "surface": "UPDATE_SURFACE=1 vitest run test/surface.test.ts",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "version:check": "node scripts/check-version.mjs",
+    "check": "npm run version:check && npm run lint && npm run typecheck && npm run coverage",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "nimbio",

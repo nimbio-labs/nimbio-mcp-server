@@ -6,9 +6,6 @@ Exposes gates, members, guest access and access logs to LLM agents as MCP tools.
 Built on [`@nimbio/community-api`](https://www.npmjs.com/package/@nimbio/community-api) —
 it adds no HTTP, auth, retry or caching code of its own.
 
-> **Status:** built and tested, awaiting first publish. Requires
-> `@nimbio/community-api` 0.7.0, which is not on npm yet.
-
 ## Quick start
 
 ```jsonc
@@ -66,10 +63,14 @@ catch people out — and four prompts to start from.
   guessing whether a real gate was involved.
 - **Tools you cannot use are not shown.** The tool list is filtered against the key's
   capabilities at startup, so the model never picks a tool destined to fail.
-- **Irreversible tools ask a human first.** Opening a gate, revoking a guest link, removing a
-  home, and switching the community's access-code system (which deletes every existing code)
-  all render their consequence and wait for confirmation. `unrestricted` mode skips that
-  step entirely — use it only where a person is already approving each call.
+- **Irreversible tools ask a human first.** Opening a gate, holding one open indefinitely,
+  revoking a guest link, removing a home, replaying webhook deliveries, messaging every
+  member, and switching the community's access-code system (which deletes every existing
+  code) all render their consequence and wait for confirmation. Confirmation is reserved for
+  what a follow-up call cannot undo: a tool that deletes something re-creatable — a hold-open
+  window, a webhook, an access code — carries `destructiveHint: true` but does not confirm.
+  `unrestricted` mode skips confirmation entirely — use it only where a person is already
+  approving each call.
 
 ## Development
 

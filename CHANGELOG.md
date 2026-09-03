@@ -3,6 +3,17 @@
 All notable changes to `@nimbio/mcp-server` are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- README: dropped the pre-publish status note ("awaiting first publish … not on
+  npm yet") that shipped inside the 0.2.0 tarball and so still shows on the npm
+  package page. The safety section now names all seven confirm-gated tools and
+  states the rule behind the `destructive` / `confirms` split in `surface.json`:
+  confirmation is reserved for what a follow-up call cannot undo, so a tool that
+  deletes something re-creatable is `destructiveHint: true` without confirming.
+
 ## [0.2.0] - 2026-09-01
 
 Single-entry access codes, and the first release intended for npm. Requires

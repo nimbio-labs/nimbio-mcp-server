@@ -1,7 +1,7 @@
 {
   "name": "@nimbio/mcp-server",
-  "version": "0.2.0",
-  "description": "Model Context Protocol server for the Nimbio community API \u2014 gates, members, guest access and access logs, exposed to LLM agents as tools.",
+  "version": "0.2.1",
+  "description": "Model Context Protocol server for the Nimbio community API — gates, members, guest access and access logs, exposed to LLM agents as tools.",
   "license": "MIT",
   "type": "module",
   "engines": {

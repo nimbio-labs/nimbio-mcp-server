@@ -3,7 +3,7 @@
 All notable changes to `@nimbio/mcp-server` are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.2.1] - 2026-09-03
 
 ### Changed
 

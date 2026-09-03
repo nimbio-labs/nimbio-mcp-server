@@ -14,6 +14,13 @@ adheres to [Semantic Versioning](https://semver.org/).
   confirmation is reserved for what a follow-up call cannot undo, so a tool that
   deletes something re-creatable is `destructiveHint: true` without confirming.
 
+### Fixed
+
+- `package.json` now carries the `repository` field npm provenance verification
+  requires, so tag-triggered Trusted Publishing can complete. The `bin` path lost
+  its `./` prefix: npm 10 normalised it silently at 0.2.0's manual publish, but
+  the current npm flags it as invalid.
+
 ## [0.2.0] - 2026-09-01
 
 Single-entry access codes, and the first release intended for npm. Requires

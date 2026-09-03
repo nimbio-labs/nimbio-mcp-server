@@ -3,12 +3,16 @@
   "version": "0.2.1",
   "description": "Model Context Protocol server for the Nimbio community API — gates, members, guest access and access logs, exposed to LLM agents as tools.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimbio-labs/nimbio-mcp-server.git"
+  },
   "type": "module",
   "engines": {
     "node": ">=18"
   },
   "bin": {
-    "nimbio-mcp": "./dist/index.js"
+    "nimbio-mcp": "dist/index.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

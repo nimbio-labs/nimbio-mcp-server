@@ -7,7 +7,7 @@
  */
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { NimbioClient } from "@nimbio/community-api";
-import { loadConfig, ConfigError } from "./config.js";
+import { clientOptions, loadConfig, ConfigError } from "./config.js";
 import { openSession } from "./session.js";
 import { createServer, selectTools } from "./server.js";
 import { VERSION } from "./version.js";
@@ -15,7 +15,7 @@ import { VERSION } from "./version.js";
 async function main(): Promise<void> {
   const config = loadConfig();
 
-  const client = new NimbioClient(config.apiKey, { environment: config.environment as never });
+  const client = new NimbioClient(config.apiKey, clientOptions(config));
   const session = await openSession(client, config);
   const filtered = selectTools(session, config);
 

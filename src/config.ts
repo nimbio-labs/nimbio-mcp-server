@@ -6,6 +6,8 @@
  * read credentials from the environment instead. See `docs/mcp-server-plan.md`
  * in nimbioCore for the reasoning.
  */
+import type { ClientOptions } from "@nimbio/community-api";
+import { VERSION } from "./version.js";
 
 /**
  * How much this process is allowed to do.
@@ -63,5 +65,17 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     mode: rawMode as Mode,
     allowLive: flag(env.NIMBIO_MCP_ALLOW_LIVE),
     allTools: flag(env.NIMBIO_MCP_ALL_TOOLS),
+  };
+}
+
+/**
+ * SDK client options for `config`. Opens are attributed to this server by
+ * `X-Nimbio-Integration`, sent through `defaultHeaders` rather than the SDK's
+ * newer `integration` option so the pinned SDK range needs no bump.
+ */
+export function clientOptions(config: Config): ClientOptions {
+  return {
+    environment: config.environment,
+    defaultHeaders: { "X-Nimbio-Integration": `mcp/${VERSION}` },
   };
 }

@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { loadConfig, ConfigError, MODES } from "../src/config.js";
+import { clientOptions, loadConfig, ConfigError, MODES } from "../src/config.js";
+import { VERSION } from "../src/version.js";
 
 describe("loadConfig", () => {
   it("refuses to start without an API key, and says how to get one", () => {
@@ -33,5 +34,15 @@ describe("loadConfig", () => {
     expect(on("false")).toBe(false);
     expect(on("")).toBe(false);
     expect(loadConfig({ NIMBIO_API_KEY: "k" }).allowLive).toBe(false);
+  });
+});
+
+describe("clientOptions", () => {
+  it("identifies this server to the API as mcp/<version>", () => {
+    const config = loadConfig({ NIMBIO_API_KEY: "k", NIMBIO_ENV: "dev" });
+    expect(clientOptions(config)).toEqual({
+      environment: config.environment,
+      defaultHeaders: { "X-Nimbio-Integration": `mcp/${VERSION}` },
+    });
   });
 });
